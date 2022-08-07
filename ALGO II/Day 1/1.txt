@@ -1,0 +1,50 @@
+class Solution {
+public:
+    vector<int> searchRange(vector<int>& nums, int target) {
+        int n = nums.size(); //size of an array
+        int s = 0 , e = n - 1;  // initialize start with 0 and end with n-1
+        
+        vector<int> ans(2,-1);  //vector to store the answer 
+        
+        //the left most position is
+        while(s<=e)
+        {
+            int mid = s + ((e - s)/2);  //calculate the mid
+            if (nums[mid] == target)  // if mid = target store the mid to the first element of an array
+            {
+                ans[0] = mid;
+                e = mid - 1;  //now as mid = target check for if the target element exists in the left half of the array ie left of the mid
+            }
+            else if (nums[mid] > target)  //if mid is bigger than the target 
+            {
+                e = mid - 1; //we will go to the left side of an array 
+            }
+            else  // when the mid is smaller than that of the target
+            {
+                s = mid + 1; //we will go to the right side of the target
+            }
+        }
+        //right most position is
+        s=0; //re-initialize the start and end points
+        e = n - 1;
+        
+        while(s<=e)
+        {
+            int mid = s + ((e - s)/2);
+            if (nums[mid] == target)  //if mid and target are equal 
+            {
+                ans[1] = mid; // store the mid into 2nd position of the ans vector
+                s = mid + 1;  // check for the right side of the array for any other target elements exists to the right side
+            }
+            else if (nums[mid] > target)
+            {
+                e = mid - 1;
+            }
+            else
+            {
+                s = mid + 1;
+            }
+        }
+        return ans;
+    }
+};
